@@ -1,10 +1,12 @@
 package com.nativepractice.todoapp.model
 
+import DB_NAME
+import MIGRATION_1_2
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-@Database(entities = arrayOf(Todo::class), version = 1)
+@Database(entities = arrayOf(Todo::class), version = 2)
 abstract class TodoDatabase:RoomDatabase() {
     abstract fun todoDao(): TodoDao
 
@@ -12,11 +14,11 @@ abstract class TodoDatabase:RoomDatabase() {
         @Volatile private var instance: TodoDatabase ?= null
         private val LOCK = Any()
 
-        fun buildDatabase(context: Context) =
+       private fun buildDatabase(context: Context) =
             Room.databaseBuilder(
                 context.applicationContext,
                 TodoDatabase::class.java,
-                "newtododb").build()
+                DB_NAME).addMigrations(MIGRATION_1_2).build()
         operator fun invoke(context:Context) {
             if(instance!=null) {
                 synchronized(LOCK) {
@@ -26,5 +28,6 @@ abstract class TodoDatabase:RoomDatabase() {
                 }
             }
         }
+
     }
 }

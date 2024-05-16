@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import buildDb
 import com.nativepractice.todoapp.model.Todo
 import com.nativepractice.todoapp.model.TodoDatabase
 import kotlinx.coroutines.CoroutineScope
@@ -24,7 +25,8 @@ class ListTodoViewModel(application: Application):AndroidViewModel(application),
         loadingLD.value = true
         todoLoadErrorLD.value = false
         viewModelScope.launch {
-            val db = TodoDatabase.buildDatabase(
+            val db = buildDb(
+
                 getApplication()
             )
             val todos = withContext(Dispatchers.IO) {
@@ -35,9 +37,20 @@ class ListTodoViewModel(application: Application):AndroidViewModel(application),
             loadingLD.value = false
         }
     }
+//    fun refresh() {
+//        loadingLD.value = true
+//        todoLoadErrorLD.value = false
+//        viewModelScope.launch {
+//            val db = TodoDatabase.buildDatabase(
+//                getApplication()
+//            )
+//            todoLD.postValue(db.todoDao().selectAllTodo())
+//            loadingLD.postValue(false)
+//        }
+//    }
     fun clearTask(todo: Todo) {
         launch {
-            val db = TodoDatabase.buildDatabase(
+            val db = buildDb(
                 getApplication()
             )
             db.todoDao().deleteTodo(todo)

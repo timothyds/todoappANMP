@@ -14,9 +14,8 @@ import com.nativepractice.todoapp.databinding.FragmentTodoListBinding
 import com.nativepractice.todoapp.viewmodel.ListTodoViewModel
 
 class TodoListFragment : Fragment() {
-    private lateinit var viewModel: ListTodoViewModel
-    private val todoListAdapter  = TodoListAdapter(arrayListOf())
-
+    private lateinit var viewModel:ListTodoViewModel
+    private val todoListAdapter  = TodoListAdapter(arrayListOf(),{item->viewModel.clearTask(item)})
     private lateinit var binding: FragmentTodoListBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,7 +63,8 @@ class TodoListFragment : Fragment() {
             } else {
                 binding.recViewTodo?.visibility = View.VISIBLE
             }
-        })
+        }
+        )
     }
 
 }
