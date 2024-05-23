@@ -30,7 +30,7 @@ class ListTodoViewModel(application: Application):AndroidViewModel(application),
                 getApplication()
             )
             val todos = withContext(Dispatchers.IO) {
-            db.todoDao().selectAllTodo()
+            db.todoDao().getIncompleteTodos()
         }
             // Updating LiveData on the main thread
             todoLD.value = todos

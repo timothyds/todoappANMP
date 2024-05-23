@@ -17,6 +17,7 @@ import com.nativepractice.todoapp.viewmodel.DetailTodoViewModel
 class CreateTodoFragment : Fragment() {
     private lateinit var binding: FragmentCreateTodoBinding
     private lateinit var viewModel: DetailTodoViewModel
+    private lateinit var todoListAdapter: TodoListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,12 +30,15 @@ class CreateTodoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel=ViewModelProvider(this).get(DetailTodoViewModel::class.java)
+        todoListAdapter = TodoListAdapter(arrayListOf()){
+            todo -> viewModel.updateTodoStatus(todo.uuid,todo.isDone)
+        }
         binding.btnAdd.setOnClickListener {
             var radio =
                 view.findViewById<RadioButton>(binding.radioGroupPriority.checkedRadioButtonId)
 
             var todo = Todo(binding.txtTitle.text.toString(),
-                binding.txtNotes.text.toString(), radio.tag.toString().toInt())
+                binding.txtNotes.text.toString(), radio.tag.toString().toInt(),0)
 
             val list = listOf(todo)
             viewModel.addTodo(list)

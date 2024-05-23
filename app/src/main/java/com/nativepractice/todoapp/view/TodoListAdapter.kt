@@ -17,11 +17,15 @@ class TodoListAdapter(val todoList: ArrayList<Todo>,
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int)
     {
-        holder.binding.checkTask.text = todoList[position].title
+        val todo = todoList[position]
+        holder.binding.checkTask.text = todo.title
+        holder.binding.checkTask.isChecked = todo.isDone == 1
+
         holder.binding.checkTask.setOnCheckedChangeListener {
-                compoundButton, b ->
+                compoundButton, isChecked ->
             if(compoundButton.isPressed){
-                adapterOnClick(todoList[position])
+                val updatedTodo = todo.copy(isDone = if (isChecked)1 else 0)
+                adapterOnClick(updatedTodo)
                 }
         }
         holder.binding.imgEdit.setOnClickListener {

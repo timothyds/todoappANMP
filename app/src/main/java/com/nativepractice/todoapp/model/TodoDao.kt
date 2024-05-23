@@ -1,5 +1,6 @@
 package com.nativepractice.todoapp.model
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -18,6 +19,11 @@ interface TodoDao {
 
     @Query("UPDATE todo SET title=:title, notes=:notes, priority=:priority WHERE uuid = :id")
     fun update(title:String, notes:String, priority:Int, id:Int)
+
+    @Query("UPDATE todo SET is_done = :isDone WHERE uuid = :id")
+    fun updateTodoStatus(id: Int, isDone: Int)
+    @Query("SELECT * FROM todo WHERE is_done = 0 ORDER BY priority DESC")
+    fun getIncompleteTodos(): List<Todo>
 
     @Delete
     fun deleteTodo(todo:Todo)
