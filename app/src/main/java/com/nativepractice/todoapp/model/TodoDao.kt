@@ -20,8 +20,8 @@ interface TodoDao {
     @Query("UPDATE todo SET title=:title, notes=:notes, priority=:priority WHERE uuid = :id")
     fun update(title:String, notes:String, priority:Int, id:Int)
 
-    @Query("UPDATE todo SET is_done = :isDone WHERE uuid = :id")
-    fun updateTodoStatus(id: Int, isDone: Int)
+    @Query("UPDATE todo SET is_done = 1 WHERE uuid = :id")
+    fun updateTodoStatus(id: Int)
     @Query("SELECT * FROM todo WHERE is_done = 0 ORDER BY priority DESC")
     fun getIncompleteTodos(): List<Todo>
 

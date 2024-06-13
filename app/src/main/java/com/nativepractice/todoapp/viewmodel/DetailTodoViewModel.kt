@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import buildDb
 import com.nativepractice.todoapp.model.Todo
-import com.nativepractice.todoapp.model.TodoDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -36,10 +35,10 @@ class DetailTodoViewModel(application: Application):AndroidViewModel(application
         }
     }
 
-    fun updateTodoStatus(uuid: Int, isDone: Int){
+    fun updateTodoStatus(uuid: Int){
         launch {
             val db = buildDb(getApplication())
-            db.todoDao().updateTodoStatus(uuid,isDone)
+            db.todoDao().updateTodoStatus(uuid)
         }
     }
 

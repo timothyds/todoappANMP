@@ -15,6 +15,7 @@ data class Todo(
     @ColumnInfo(name="is_done")
     var isDone:Int
 ){
+
     @PrimaryKey(autoGenerate = true)
     var uuid:Int = 0
 }

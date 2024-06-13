@@ -9,6 +9,7 @@ plugins {
 android {
     buildFeatures{
         viewBinding = true
+        dataBinding = true
     }
     namespace = "com.nativepractice.todoapp"
     compileSdk = 34
@@ -53,6 +54,7 @@ dependencies {
     implementation ("androidx.navigation:navigation-ui-ktx:2.5.3")
     implementation ("androidx.room:room-runtime:2.5.1")
     implementation ("androidx.room:room-ktx:2.5.1")
+    implementation ("androidx.work:work-runtime-ktx:2.9.0")
     kapt ("androidx.room:room-compiler:2.5.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

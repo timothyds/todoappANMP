@@ -11,8 +11,8 @@
             name="radioListener"
             type="com.nativepractice.todoapp.view.RadioClick" />
         <variable
-            name="listener"
-            type="com.nativepractice.todoapp.view.ButtonAddTodoClickListener" />
+            name="saveListener"
+            type="com.nativepractice.todoapp.view.TodoSaveChangesClick" />
     </data>
 
     <FrameLayout
@@ -79,11 +79,11 @@
 
             <Button
                 android:id="@+id/btnAdd"
+                android:onClick="@{(view) -> saveListener.onTodoSaveChangesClick(view,todo)}"
                 android:layout_width="119dp"
                 android:layout_height="57dp"
                 android:layout_marginTop="220dp"
                 android:text="add Todo"
-                android:onClick="@{listener::onButtonAddTodo}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/radioGroupPriority" />
@@ -99,6 +99,7 @@
 
                 <RadioButton
                     android:id="@+id/radioHigh"
+                    android:onClick="@{(view)->radioListener.onRadioClick(view,3, todo)}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
@@ -107,6 +108,7 @@
 
                 <RadioButton
                     android:id="@+id/radioMedium"
+                    android:onClick="@{(view)->radioListener.onRadioClick(view,2, todo)}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:tag="2"
@@ -114,6 +116,7 @@
 
                 <RadioButton
                     android:id="@+id/radioLow"
+                    android:onClick="@{(view)->radioListener.onRadioClick(view,1, todo)}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:tag="1"
