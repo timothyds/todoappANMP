@@ -35,12 +35,7 @@ class DetailTodoViewModel(application: Application):AndroidViewModel(application
         }
     }
 
-    fun updateTodoStatus(uuid: Int){
-        launch {
-            val db = buildDb(getApplication())
-            db.todoDao().updateTodoStatus(uuid)
-        }
-    }
+
 
 
     override val coroutineContext: CoroutineContext

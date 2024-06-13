@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import buildDb
 import com.nativepractice.todoapp.model.Todo
-import com.nativepractice.todoapp.model.TodoDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -30,7 +29,7 @@ class ListTodoViewModel(application: Application):AndroidViewModel(application),
                 getApplication()
             )
             val todos = withContext(Dispatchers.IO) {
-            db.todoDao().selectAllTodo()
+            db.todoDao().getIncompleteTodos()
         }
             // Updating LiveData on the main thread
             todoLD.value = todos
@@ -48,14 +47,15 @@ class ListTodoViewModel(application: Application):AndroidViewModel(application),
 //            loadingLD.postValue(false)
 //        }
 //    }
+
     fun clearTask(todo: Todo) {
         launch {
             val db = buildDb(
                 getApplication()
             )
-            db.todoDao().deleteTodo(todo)
+            db.todoDao().updateTodoStatus(todo.uuid)
 
-            todoLD.postValue(db.todoDao().selectAllTodo())
+            todoLD.postValue(db.todoDao().getIncompleteTodos())
         }
     }
 

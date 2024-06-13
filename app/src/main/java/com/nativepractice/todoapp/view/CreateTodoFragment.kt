@@ -58,21 +58,6 @@ class CreateTodoFragment : Fragment(), ButtonAddTodoClickListener, RadioClick {
         viewModel = ViewModelProvider(this).get(DetailTodoViewModel::class.java)
         dataBinding.listener = this
         dataBinding.radioListener = this
-        dataBinding.btnAdd.setOnClickListener {
-            val notif = NotificationHelper(view.context)
-            notif.createNotification("Todo Created",
-                "A new todo has been created! Stay focus!")
-
-            val workRequest = OneTimeWorkRequestBuilder<TodoWorker>()
-                .setInitialDelay(30, TimeUnit.SECONDS)
-                .setInputData(
-                    workDataOf(
-                        "title" to "Todo created",
-                        "message" to "Stay focus"
-                    ))
-                .build()
-            WorkManager.getInstance(requireContext()).enqueue(workRequest)
-        }
 
 
             /* binding.btnAdd.setOnClickListener {
@@ -125,7 +110,7 @@ class CreateTodoFragment : Fragment(), ButtonAddTodoClickListener, RadioClick {
         viewModel.addTodo(listOf(dataBinding.todo!!))
         Toast.makeText(v.context, "Data added", Toast.LENGTH_LONG).show()
         val workRequest = OneTimeWorkRequestBuilder<TodoWorker>()
-            .setInitialDelay(30, TimeUnit.SECONDS)
+            .setInitialDelay(5, TimeUnit.SECONDS)
             .setInputData(
                 workDataOf(
                     "title" to "Todo created",

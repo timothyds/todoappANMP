@@ -101,7 +101,8 @@
                     android:id="@+id/radioHigh"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:checked="true"
+                    android:checked="@{todo.priority==3?true:false}"
+                    android:onClick="@{(view)->radioListener.onRadioClick(view,3, todo)}"
                     android:tag="3"
                     android:text="High Priority" />
 
