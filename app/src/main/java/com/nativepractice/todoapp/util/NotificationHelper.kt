@@ -19,7 +19,7 @@ import com.nativepractice.todoapp.R
 import com.nativepractice.todoapp.view.MainActivity
 import java.util.jar.Manifest
 
-class NotificationHelper(val context: Context, val activity:Activity) {
+class NotificationHelper(val context: Context,/* val activity:Activity*/) {
     private val CHANNEL_ID = "todo_channel_id"
     private val NOTIFICATION_ID = 1
 
@@ -53,10 +53,16 @@ class NotificationHelper(val context: Context, val activity:Activity) {
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .build()
-
         try {
-//            NotificationManagerCompat.from(context)
-//                .notify(NOTIFICATION_ID, notification)
+            NotificationManagerCompat.from(context)
+                .notify(NOTIFICATION_ID, notification)
+        } catch (e:SecurityException) {
+            Log.e("error", e.toString())
+        }
+
+        /*try {
+            NotificationManagerCompat.from(context)
+                .notify(NOTIFICATION_ID, notification)
             if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(activity,
                     arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),REQUEST_NOTIF)
@@ -67,7 +73,7 @@ class NotificationHelper(val context: Context, val activity:Activity) {
 
         } catch (e:SecurityException) {
             Log.e("error", e.toString())
-        }
+        }*/
 
     }
     companion object {
